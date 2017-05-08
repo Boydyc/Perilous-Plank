@@ -12,9 +12,12 @@ public class Driver
 		int gridWidth=9;
 		int gridHeight=13;
 		int panelHeight=150;
-		int aWidth=675;
-		int aHeight=1024;
+		int panelWidth=675;
+		int aWidth=900;
+		int aHeight=985;
 		int cpHeight= aHeight-(panelHeight*2);
+		int btnHeight=40;
+		int btnWidth=200;
 		
 		//Imports the Image a sets the image to the same size of the grid itself
 		
@@ -56,12 +59,43 @@ public class Driver
 		a.setVisible(true);
 		a.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//Creates a center JPanel that holds the 9x13 grid..
+		//Creates a center JPanel that holds the 9x13 grid
 		JPanel center = new JPanel();
-		center.setSize(aWidth, cpHeight);
+		center.setSize(panelWidth, cpHeight);
 		center.setLayout(new GridLayout(gridHeight, gridWidth));
-		center.setOpaque(true);
 		a.add(center, BorderLayout.CENTER);
+		
+		//Adds a JPanel for the Users heads up display
+		JPanel hud = new JPanel();
+		hud.setSize(aWidth-panelWidth, cpHeight);
+		hud.setLayout(new BorderLayout());
+		a.add(hud, BorderLayout.EAST);
+		
+		//Adds a JPanel to hold the restart button
+		JPanel rHud = new JPanel();
+		hud.add(rHud, BorderLayout.NORTH);
+		
+		//This is the JButton for the restart button (added to the JPanel)
+		JButton restart = new JButton("RESTART LEVEL");
+		restart.setPreferredSize(new Dimension(btnWidth, btnHeight));
+		rHud.add(restart, BorderLayout.NORTH);
+				
+		//Adds a JPanel for the quit button
+		JPanel qHud = new JPanel();
+		hud.add(qHud, BorderLayout.SOUTH);
+		
+		//This is the JButton for the quit button (added to the JPanel)
+		JButton quit = new JButton("QUIT");
+		quit.setPreferredSize(new Dimension(btnWidth, btnHeight));
+		qHud.add(quit, BorderLayout.SOUTH);
+				
+		//Adds a JPanel to show the items that the player is currently holding
+		JPanel holding = new JPanel();
+		hud.add(holding, BorderLayout.CENTER);
+		
+		//Creates a JLabel saying "You are carrying:"
+		JLabel carry = new JLabel("You are carrying:");
+		holding.add(carry, BorderLayout.CENTER);
 		
 		//Creates a north JPanel that holds the high score and timer JLabels
 		JPanel north = new JPanel();
@@ -91,7 +125,6 @@ public class Driver
 		//Creates a JLabel that can hold the timer
 		JLabel highscore1 = new JLabel("Timer: 0:12");
 		nEast.add(highscore1);
-		
 		
 		//Creates a south JPanels that hold the instructions
 		JPanel south = new JPanel();
