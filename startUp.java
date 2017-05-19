@@ -11,6 +11,8 @@ public class startUp
 	int col=9;
 	int c=0;
 	int r=0;
+	int lastR=0;
+	int lastC=0;
 	int gridWidth=9;
 	int gridHeight=13;
 	int panelHeight=150;
@@ -21,8 +23,7 @@ public class startUp
 	int btnHeight=40;
 	int btnWidth=200;
 	int lvl=1;
-	int plankvHolder=0;
-	int plankhHolder=0;
+	int plank=0;
 
 	public void start()
 	{
@@ -438,50 +439,67 @@ public class startUp
 									System.out.println(((Component) e.getSource()).getName());
 								}
 								
-								//This allows to know whether the user is clicking on a plank or not. Also checks for other planks vertically
-								if(((Component) e.getSource()).getName()=="plank2" && button[r][c].getName()=="plank2")
+								if(button[r][c]==(JButton) e.getSource())
 								{
-									//Sets the initial plank click to the water sprite. Plus adds 1 to the count of the length of plank the user is carrying
-									button[r][c].setIcon(water1);
-									plankvHolder++;
-									
-									//Checks if the is a plank 1 row above the plank the user clicked
-									if(button[r+1][c].getName()=="plank2")
-									{
-										button[r+1][c].setIcon(water1);
-										plankvHolder++;
-									}
-									
-									//Checks if the is a plank 1 row below the plank the user clicked
-									if(button[r-1][c].getName()=="plank2")
-									{
-										button[r-1][c].setIcon(water1);
-										plankvHolder++;
-									}
+									lastR=r;
+									lastC=c;
 								}
-								
-								//This allows to know whether the user is clicking on a plank or not. Also checks for other planks horizontally
-								if(((Component) e.getSource()).getName()=="plank1" && button[r][c].getName()=="plank1")
-								{
-									//Sets the initial plank click to the water sprite. Plus adds 1 to the count of the length of plank the user is carrying
-									button[r][c].setIcon(water1);
-									plankhHolder++;
-									
-									//Checks if the is a plank to the right of the plank the user clicked
-									if(button[r][c+1].getName()=="plank2")
-									{
-										button[r][c+1].setIcon(water1);
-										plankhHolder++;
-									}
-									
-									//Checks if the is a plank to the left of the plank the user clicked
-									if(button[r][c-1].getName()=="plank2")
-									{
-										button[r+1][c-1].setIcon(water1);
-										plankhHolder++;
-									}
-								}
-								
+							}
+						}
+						
+						if(button[lastR][lastC].getName()=="plank2" && plank==0 && button[lastR+1][lastC].getName()!="plank2" && button[lastR-1][lastC].getName()!="plank2")
+						{
+							button[lastR][lastC].setIcon(water1);
+							button[lastR][lastC].setName("water1");
+							plank=1;
+						}
+						
+						else if(button[lastR][lastC].getName()=="water1" && plank==1)
+						{
+							button[lastR][lastC].setIcon(plank2);
+							button[lastR][lastC].setName("plank2");
+							plank=0;
+						}
+						
+						if(button[lastR][lastC].getName()=="plank2" && plank==0 && button[lastR+1][lastC].getName()=="plank2" || button[lastR-1][lastC].getName()=="plank2")
+						{
+							if(button[lastR+1][lastC].getName()=="plank2" && button[lastR][lastC].getName()=="plank2")
+							{
+								button[lastR][lastC].setIcon(water1);
+								button[lastR][lastC].setName("water1");
+								button[lastR+1][lastC].setIcon(water1);
+								button[lastR+1][lastC].setName("water1");
+								plank=2;
+							}
+							
+							else if(button[lastR-1][lastC].getName()=="plank2" && button[lastR][lastC].getName()=="plank2")
+							{
+								button[lastR][lastC].setIcon(water1);
+								button[lastR][lastC].setName("water1");
+								button[lastR-1][lastC].setIcon(water1);
+								button[lastR-1][lastC].setName("water1");
+								plank=2;
+							}
+						}
+						
+						else if (button[lastR][lastC].getName()=="water1" && plank==2 && button[lastR+1][lastC].getName()=="stump1" || button[lastR-1][lastC].getName()=="stump1" || button[lastR-1][lastC].getName()=="stump2" || button[lastR-1][lastC].getName()=="stump3" || button[lastR-1][lastC].getName()=="stumpman1" || button[lastR-1][lastC].getName()=="stumpman2" || button[lastR-1][lastC].getName()=="stumpman3" || button[lastR+1][lastC].getName()=="stump2" || button[lastR+1][lastC].getName()=="stump3" || button[lastR+1][lastC].getName()=="stumpman1" || button[lastR+1][lastC].getName()=="stumpman2" || button[lastR+1][lastC].getName()=="stumpman3")
+						{
+							if(button[lastR+1][lastC].getName()=="water1" && plank==2)
+							{
+								button[lastR][lastC].setIcon(plank2);
+								button[lastR][lastC].setName("plank2");
+								button[lastR+1][lastC].setIcon(plank2);
+								button[lastR+1][lastC].setName("plank2");
+								plank=0;
+							}
+							
+							else if(button[lastR-1][lastC].getName()=="water1" && plank==2)
+							{
+								button[lastR][lastC].setIcon(plank2);
+								button[lastR][lastC].setName("plank2");
+								button[lastR-1][lastC].setIcon(plank2);
+								button[lastR-1][lastC].setName("plank2");
+								plank=0;
 							}
 						}
 				}});
