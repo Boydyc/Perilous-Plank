@@ -376,7 +376,6 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman1");
 									button[r][c].setIcon(stump2);
 									button[r][c].setName("stump2");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
 								//If man man is on stumpman1 and the user clicks stump 2. The sprite moves from one to the other.
@@ -386,7 +385,6 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman2");
 									button[r][c].setIcon(stump1);
 									button[r][c].setName("stump1");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
 								//If man man is on stumpman2 and the user clicks stump 3. The sprite moves from one to the other.
@@ -396,7 +394,6 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman3");
 									button[r][c].setIcon(stump2);
 									button[r][c].setName("stump2");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
 								//If man man is on stumpman3 and the user clicks stump 2. The sprite moves from one to the other.
@@ -406,7 +403,6 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman2");
 									button[r][c].setIcon(stump3);
 									button[r][c].setName("stump3");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
 								//If man man is on stumpman1 and the user clicks stump 1. The sprite moves from one to the other.
@@ -416,7 +412,6 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman1");
 									button[r][c].setIcon(stump1);
 									button[r][c].setName("stump1");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
 								//If man man is on stumpman1 and the user clicks stump 3. The sprite moves from one to the other.
@@ -426,7 +421,6 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman3");
 									button[r][c].setIcon(stump1);
 									button[r][c].setName("stump1");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
 								//If man man is on stumpman3 and the user clicks stump 1. The sprite moves from one to the other.
@@ -436,34 +430,38 @@ public class startUp
 									((Component) e.getSource()).setName("stumpman1");
 									button[r][c].setIcon(stump3);
 									button[r][c].setName("stump3");
-									System.out.println(((Component) e.getSource()).getName());
 								}
 								
+								//Creates integers that hold the co-ordinates of the last place that the user clicked.
 								if(button[r][c]==(JButton) e.getSource())
 								{
 									lastR=r;
 									lastC=c;
 								}
+								
 							}
 						}
 						
+						//Checks to see if the user clicked on a  single plank. If its true it sets the square of the plank to water and the user picks up the plank.
 						if(button[lastR][lastC].getName()=="plank2" && plank==0 && button[lastR+1][lastC].getName()!="plank2" && button[lastR-1][lastC].getName()!="plank2")
 						{
-							button[lastR][lastC].setIcon(water1);
-							button[lastR][lastC].setName("water1");
-							plank=1;
+								button[lastR][lastC].setIcon(water1);
+								button[lastR][lastC].setName("water1");
+								plank=1;
 						}
 						
-						else if(button[lastR][lastC].getName()=="water1" && plank==1)
+						//Checks to see if the user has put the plank in a valid location. If its true, it changes the button to a single plank. The user stops holding the plank.
+						else if(button[lastR][lastC].getName()=="water1" && plank==1 &&(button[lastR-1][lastC].getName()=="stump1" || button[lastR-1][lastC].getName()=="stump2" || button[lastR-1][lastC].getName()=="stump3" || button[lastR-1][lastC].getName()=="stumpman1" || button[lastR-1][lastC].getName()=="stumpman2" || button[lastR-1][lastC].getName()=="stumpman3") && (button[lastR+1][lastC].getName()=="stump1" || button[lastR+1][lastC].getName()=="stump2" || button[lastR+1][lastC].getName()=="stump3" || button[lastR+1][lastC].getName()=="stumpman1" || button[lastR+1][lastC].getName()=="stumpman2" || button[lastR+1][lastC].getName()=="stumpman3"))
 						{
 							button[lastR][lastC].setIcon(plank2);
 							button[lastR][lastC].setName("plank2");
-							plank=0;
+							plank=0; 
 						}
 						
+						//Checks to see if the user clicked on a  double plank. If its true it sets the square of the plank to water and the user picks up the plank.
 						if(button[lastR][lastC].getName()=="plank2" && plank==0 && button[lastR+1][lastC].getName()=="plank2" || button[lastR-1][lastC].getName()=="plank2")
 						{
-							if(button[lastR+1][lastC].getName()=="plank2" && button[lastR][lastC].getName()=="plank2")
+							if(button[lastR+1][lastC].getName()=="plank2" && button[lastR][lastC].getName()=="plank2" && plank==0)
 							{
 								button[lastR][lastC].setIcon(water1);
 								button[lastR][lastC].setName("water1");
@@ -472,7 +470,7 @@ public class startUp
 								plank=2;
 							}
 							
-							else if(button[lastR-1][lastC].getName()=="plank2" && button[lastR][lastC].getName()=="plank2")
+							else if(button[lastR-1][lastC].getName()=="plank2" && button[lastR][lastC].getName()=="plank2" && plank==0)
 							{
 								button[lastR][lastC].setIcon(water1);
 								button[lastR][lastC].setName("water1");
@@ -482,9 +480,10 @@ public class startUp
 							}
 						}
 						
-						else if (button[lastR][lastC].getName()=="water1" && plank==2 && button[lastR+1][lastC].getName()=="stump1" || button[lastR-1][lastC].getName()=="stump1" || button[lastR-1][lastC].getName()=="stump2" || button[lastR-1][lastC].getName()=="stump3" || button[lastR-1][lastC].getName()=="stumpman1" || button[lastR-1][lastC].getName()=="stumpman2" || button[lastR-1][lastC].getName()=="stumpman3" || button[lastR+1][lastC].getName()=="stump2" || button[lastR+1][lastC].getName()=="stump3" || button[lastR+1][lastC].getName()=="stumpman1" || button[lastR+1][lastC].getName()=="stumpman2" || button[lastR+1][lastC].getName()=="stumpman3")
+						//Checks to see if the user has put the plank in a valid location. If its true, it changes the button to a single plank. The user stops holding the plank.
+						else if (button[lastR][lastC].getName()=="water1" && plank==2 && (button[lastR-2][lastC].getName()=="stump1" || button[lastR-2][lastC].getName()=="stump2" || button[lastR-2][lastC].getName()=="stump3" || button[lastR-2][lastC].getName()=="stumpman1" || button[lastR-2][lastC].getName()=="stumpman2" || button[lastR-2][lastC].getName()=="stumpman3" && button[lastR+1][lastC].getName()=="stump1" || button[lastR+1][lastC].getName()=="stump2" || button[lastR+1][lastC].getName()=="stump3" || button[lastR+1][lastC].getName()=="stumpman1" || button[lastR+1][lastC].getName()=="stumpman2" || button[lastR+1][lastC].getName()=="stumpman3") || (button[lastR+2][lastC].getName()=="stump1" || button[lastR+2][lastC].getName()=="stump2" || button[lastR+2][lastC].getName()=="stump3" || button[lastR+2][lastC].getName()=="stumpman1" || button[lastR+2][lastC].getName()=="stumpman2" || button[lastR+2][lastC].getName()=="stumpman3" && button[lastR-1][lastC].getName()=="stump1" || button[lastR-1][lastC].getName()=="stump2" || button[lastR-1][lastC].getName()=="stump3" || button[lastR-1][lastC].getName()=="stumpman1" || button[lastR-1][lastC].getName()=="stumpman2" || button[lastR-1][lastC].getName()=="stumpman3"))
 						{
-							if(button[lastR+1][lastC].getName()=="water1" && plank==2)
+							if(button[lastR+1][lastC].getName()=="water1" && plank==2 && button[lastR][lastC].getName()=="water1")
 							{
 								button[lastR][lastC].setIcon(plank2);
 								button[lastR][lastC].setName("plank2");
@@ -493,7 +492,7 @@ public class startUp
 								plank=0;
 							}
 							
-							else if(button[lastR-1][lastC].getName()=="water1" && plank==2)
+							else if(button[lastR-1][lastC].getName()=="water1" && plank==2 && button[lastR][lastC].getName()=="water1")
 							{
 								button[lastR][lastC].setIcon(plank2);
 								button[lastR][lastC].setName("plank2");
@@ -502,6 +501,71 @@ public class startUp
 								plank=0;
 							}
 						}
+						
+						System.out.println(button[lastR][lastC].getName());
+						System.out.println(plank);
+						
+						//Checks to see if the user clicked on a  single plank. If its true it sets the square of the plank to water and the user picks up the plank.
+						if(button[lastR][lastC].getName()=="plank1" && plank==0 && button[lastR][lastC+1].getName()!="plank1" && button[lastR][lastC-1].getName()!="plank1")
+						{
+								button[lastR][lastC].setIcon(water1);
+								button[lastR][lastC].setName("water1");
+								plank=1;
+						}
+						
+						//Checks to see if the user has put the plank in a valid location. If its true, it changes the button to a single plank. The user stops holding the plank.
+						else if(button[lastR][lastC].getName()=="water1" && plank==1 &&(button[lastR][lastC-1].getName()=="stump1" || button[lastR][lastC-1].getName()=="stump2" || button[lastR][lastC-1].getName()=="stump3" || button[lastR][lastC-1].getName()=="stumpman1" || button[lastR][lastC-1].getName()=="stumpman2" || button[lastR][lastC-1].getName()=="stumpman3") && (button[lastR][lastC+1].getName()=="stump1" || button[lastR][lastC+1].getName()=="stump2" || button[lastR][lastC+1].getName()=="stump3" || button[lastR][lastC+1].getName()=="stumpman1" || button[lastR][lastC+1].getName()=="stumpman2" || button[lastR][lastC+1].getName()=="stumpman3"))
+						{
+							button[lastR][lastC].setIcon(plank1);
+							button[lastR][lastC].setName("plank1");
+							plank=0; 
+						}
+						
+						//Checks to see if the user clicked on a  double plank. If its true it sets the square of the plank to water and the user picks up the plank.
+						if(button[lastR][lastC].getName()=="plank1" && plank==0 && button[lastR][lastC+1].getName()=="plank1" || button[lastR][lastC-1].getName()=="plank1")
+						{
+							if(button[lastR][lastC+1].getName()=="plank1" && button[lastR][lastC].getName()=="plank1" && plank==0)
+							{
+								button[lastR][lastC].setIcon(water1);
+								button[lastR][lastC].setName("water1");
+								button[lastR][lastC+1].setIcon(water1);
+								button[lastR][lastC+1].setName("water1");
+								plank=2;
+							}
+							
+							else if(button[lastR][lastC-1].getName()=="plank1" && button[lastR][lastC].getName()=="plank1" && plank==0)
+							{
+								button[lastR][lastC].setIcon(water1);
+								button[lastR][lastC].setName("water1");
+								button[lastR][lastC-1].setIcon(water1);
+								button[lastR][lastC-1].setName("water1");
+								plank=2;
+							}
+						}
+						
+						//Checks to see if the user has put the plank in a valid location. If its true, it changes the button to a single plank. The user stops holding the plank.
+						else if (button[lastR][lastC].getName()=="water1" && plank==2 && (button[lastR][lastC-2].getName()=="stump1" || button[lastR][lastC-2].getName()=="stump2" || button[lastR][lastC-2].getName()=="stump3" || button[lastR][lastC-2].getName()=="stumpman1" || button[lastR][lastC-2].getName()=="stumpman2" || button[lastR][lastC-2].getName()=="stumpman3" && button[lastR][lastC+1].getName()=="stump1" || button[lastR][lastC+1].getName()=="stump2" || button[lastR][lastC+1].getName()=="stump3" || button[lastR][lastC+1].getName()=="stumpman1" || button[lastR][lastC+1].getName()=="stumpman2" || button[lastR][lastC+1].getName()=="stumpman3") || (button[lastR][lastC+2].getName()=="stump1" || button[lastR][lastC+2].getName()=="stump2" || button[lastR][lastC+2].getName()=="stump3" || button[lastR][lastC+2].getName()=="stumpman1" || button[lastR][lastC+2].getName()=="stumpman2" || button[lastR][lastC+2].getName()=="stumpman3" && button[lastR][lastC-1].getName()=="stump1" || button[lastR][lastC-1].getName()=="stump2" || button[lastR][lastC-1].getName()=="stump3" || button[lastR][lastC-1].getName()=="stumpman1" || button[lastR][lastC-1].getName()=="stumpman2" || button[lastR][lastC-1].getName()=="stumpman3"))
+						{
+							if(button[lastR][lastC-1].getName()=="water1" && plank==2 && button[lastR][lastC].getName()=="water1")
+							{
+								button[lastR][lastC].setIcon(plank1);
+								button[lastR][lastC].setName("plank1");
+								button[lastR][lastC-1].setIcon(plank1);
+								button[lastR][lastC-1].setName("plank1");
+								plank=0;
+							}
+							
+							else if(button[lastR][lastC+1].getName()=="water1" && plank==2 && button[lastR][lastC].getName()=="water1")
+							{
+								button[lastR][lastC].setIcon(plank1);
+								button[lastR][lastC].setName("plank1");
+								button[lastR][lastC+1].setIcon(plank1);
+								button[lastR][lastC+1].setName("plank1");
+								plank=0;
+							}
+						}
+						
+						
 				}});
 			}
 		}
@@ -509,31 +573,46 @@ public class startUp
 		//This is the levels layout section. It uses the co-ordinates of the buttons to build a pre-made map for the user to play.
 		if(lvl==1)
 		{
-			button[12][5].setIcon(stumpman2);
-			button[12][5].setName("stumpman2");
-			button[11][5].setIcon(plank2);
-			button[11][5].setName("plank2");
-			button[10][5].setIcon(plank2);
-			button[10][5].setName("plank2");
-			button[9][5].setIcon(stump1);
-			button[9][5].setName("stump1");
-			button[6][5].setIcon(stump1);
-			button[6][5].setName("stump1");
-			button[3][5].setIcon(stump1);
-			button[3][5].setName("stump1");
-			button[0][5].setIcon(stump3);
-			button[0][5].setName("stump3");
+			button[12][2].setIcon(stumpman2);
+			button[12][2].setName("stumpman2");
+			button[11][2].setIcon(plank2);
+			button[11][2].setName("plank2");
+			button[10][2].setIcon(plank2);
+			button[10][2].setName("plank2");
+			button[9][2].setIcon(stump1);
+			button[9][2].setName("stump1");
+			button[9][3].setIcon(plank1);
+			button[9][3].setName("plank1");
+			button[9][4].setIcon(stump1);
+			button[9][4].setName("stump1");
+			button[6][4].setIcon(stump1);
+			button[6][4].setName("stump1");
+			button[6][2].setIcon(stump1);
+			button[6][2].setName("stump1");
+			button[3][2].setIcon(stump1);
+			button[3][2].setName("stump1");
+			button[3][0].setIcon(stump1);
+			button[3][0].setName("stump1");
+			button[0][0].setIcon(stump3);
+			button[0][0].setName("stump3");
 		}	
 
 		if(lvl==2)
 		{
 			button[12][1].setIcon(stumpman2);
+			button[12][1].setName("stumpman2");
 			button[11][1].setIcon(plank2);
+			button[11][1].setName("plank2");
 			button[10][1].setIcon(plank2);
+			button[10][1].setName("plank2");
 			button[9][1].setIcon(stump1);
+			button[9][1].setName("stump1");
 			button[6][1].setIcon(stump1);
+			button[6][1].setName("stump1");
 			button[3][1].setIcon(stump1);
+			button[3][1].setName("stump1");
 			button[0][1].setIcon(stump3);
+			button[0][1].setName("stump3");
 		}
 		
 		//Creates a JLabel that can hold the timer
