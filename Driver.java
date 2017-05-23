@@ -4,7 +4,6 @@ public class Driver
 	{
 		startUp frame = new startUp();
 		frame.start();
-		
 	}
 }
 
